@@ -10,10 +10,10 @@ from selenium import webdriver
 
 
 def open_web_driver():
-    '''´ò¿ªä¯ÀÀÆ÷'''
+    '''æ‰“å¼€æµè§ˆå™¨'''
     # browser = webdriver.Chrome()
     # file_path = r'C:\Users\zsjw03\AppData\Roaming\Mozilla\Firefox\Profiles\gr2556xd.default'
-    # # ±£Áôä¯ÀÀÆ÷µÄÉèÖÃ£¬¼´Ïà¹Øcookies£¬ÏÂ´ÎÖ±½ÓÌø¹ıµÇÂ½·ÃÎÊÒ³Ãæ
+    # # ä¿ç•™æµè§ˆå™¨çš„è®¾ç½®ï¼Œå³ç›¸å…³cookiesï¼Œä¸‹æ¬¡ç›´æ¥è·³è¿‡ç™»é™†è®¿é—®é¡µé¢
     # fp = webdriver.FirefoxProfile(file_path)
     browser = webdriver.Chrome()
     browser.maximize_window()
@@ -21,12 +21,12 @@ def open_web_driver():
 
 
 def close_web_driver(browser):
-    '''¹Ø±Õä¯ÀÀÆ÷'''
+    '''å…³é—­æµè§ˆå™¨'''
     browser.quit()
 
 
 def driver_scroll(driver, url, keyword,zong_sums):
-    '''Ä£Äâä¯ÀÀÆ÷²Ù×÷ÇëÇóÒ³ÃæĞÅÏ¢£¬¹ö¶¯Ìõ¿ÉÉèÖÃ£¬¹ö¶¯Î»ÖÃ¿ÉÉèÖÃ'''
+    '''æ¨¡æ‹Ÿæµè§ˆå™¨æ“ä½œè¯·æ±‚é¡µé¢ä¿¡æ¯ï¼Œæ»šåŠ¨æ¡å¯è®¾ç½®ï¼Œæ»šåŠ¨ä½ç½®å¯è®¾ç½®'''
     try:
         browser.get(url)
     except:
@@ -36,115 +36,115 @@ def driver_scroll(driver, url, keyword,zong_sums):
     time.sleep(18)
     scroll_step_list=[1600]
 
-    # ´ÓµÚ¶şĞĞĞ´Èë
+    # ä»ç¬¬äºŒè¡Œå†™å…¥
     sums = zong_sums
     set_list = []
     ks = 1
-    # ½áÊøÌõ¼ş
+    # ç»“æŸæ¡ä»¶
     js_sum = 1
-    # ½áÊøÊÂ¼ş¶ş
+    # ç»“æŸäº‹ä»¶äºŒ
     js2 = 1
     bczz = 1
     k11 = 1
     for i in range(5000000):
-        # ±¨´íÖÕÖ¹
+        # æŠ¥é”™ç»ˆæ­¢
         try:
             browser.execute_script("window.scrollBy(0, {});".format(scroll_step_list[0]))
             # browser.execute_script("window.scrollTo(0, 300);")
             # browser.execute_script("window.scrollTo")
             time.sleep(random.randint(15, 20))
             # parser_tweets_info(driver.page_source, keyword)
-            # ´ÓµÚ¶şĞĞĞ´Èë
+            # ä»ç¬¬äºŒè¡Œå†™å…¥
 
-            # Êı¾İÈë¿â
-            if 'Ã»ÓĞ·ûºÏËÑË÷Ìõ¼şµÄ½á¹û' in driver.page_source:
-                print("Ã»ÓĞ·ûºÏËÑË÷Ìõ¼şµÄ½á¹û-----------")
+            # æ•°æ®å…¥åº“
+            if 'æ²¡æœ‰ç¬¦åˆæœç´¢æ¡ä»¶çš„ç»“æœ' in driver.page_source:
+                print("æ²¡æœ‰ç¬¦åˆæœç´¢æ¡ä»¶çš„ç»“æœ-----------")
                 return
 
             html = etree.HTML(driver.page_source)
             tweets_list = html.xpath("//div[@class='css-1dbjc4n']/article/div/div/div/div[2]/div[2]")
             # print('tweets_list',tweets_list)
-            # ÍÆÌØÕËºÅêÇ³Æ
+            # æ¨ç‰¹è´¦å·æ˜µç§°
             # //div[@class='css-1dbjc4n r-1ifxtd0 r-ymttw5 r-ttdzmv']/div[2]/div/div/div[1]/div/span/span/text()
             name = html.xpath(
                 "//div[@class='css-1dbjc4n r-1ifxtd0 r-ymttw5 r-ttdzmv']/div[2]/div/div/div[1]/div/span/span/text()")[0]
 
-            print('¹²', len(tweets_list), 'Êı¾İ')
+            print('å…±', len(tweets_list), 'æ•°æ®')
             if len(tweets_list) == 0:
-                print(keyword,'Ã»ÓĞ·¢±íÌû×Ó»òÊÜ±£»¤£¡')
-                # 0 ´ú±íÃ»ÓĞ·¢±íÌû×Ó»òÊÜ±£»¤£¡
+                print(keyword,'æ²¡æœ‰å‘è¡¨å¸–å­æˆ–å—ä¿æŠ¤ï¼')
+                # 0 ä»£è¡¨æ²¡æœ‰å‘è¡¨å¸–å­æˆ–å—ä¿æŠ¤ï¼
                 row = 'A' + str(sums)
-                wsheet1.write_row(row, [keyword,'ÎŞ','ÎŞ','ÎŞ','Ã»ÓĞ·¢±íÌû×Ó»òÊÜ±£»¤£¡','ÎŞ',0,0,0])
+                wsheet1.write_row(row, [keyword,'æ— ','æ— ','æ— ','æ²¡æœ‰å‘è¡¨å¸–å­æˆ–å—ä¿æŠ¤ï¼','æ— ',0,0,0])
                 # print("***********",list_data)
-                # print('µÚ', sums - 1, 'Ò³Êı¾İ', 'list_data>>>>>>', list_data)
-                print('******µÚ', sums - 1, 'ÌõÊı¾İ******')
+                # print('ç¬¬', sums - 1, 'é¡µæ•°æ®', 'list_data>>>>>>', list_data)
+                print('******ç¬¬', sums - 1, 'æ¡æ•°æ®******')
                 sums += 1
                 return sums
             sum11 = 0
             for tweet_info in tweets_list:
-                # Ğ´ÈëµÄÊı¾İÁĞ±í
+                # å†™å…¥çš„æ•°æ®åˆ—è¡¨
                 list_data = []
                 set_list1 = []
-                # ÕËºÅID
+                # è´¦å·ID
                 id = keyword  # id
                 list_data.append(id)
                 print(id)
-                # ÕËºÅêÇ³Æ
+                # è´¦å·æ˜µç§°
                 list_data.append(name)
                 # print(name)
                 # print('tweet_info',tweet_info)
-                # ·¢²¼Ê±¼ä
+                # å‘å¸ƒæ—¶é—´
                 Time = tweet_info.xpath('.//a/time/text()')[0]
                 print('Time----',Time)
-                # ĞèÒª¸Ä
-                # 12Ğ¡Ê±×ªÈÕÆÚ
+                # éœ€è¦æ”¹
+                # 12å°æ—¶è½¬æ—¥æœŸ
                 try:
-                    if Time[-1] == 'ÖÓ':
+                    if Time[-1] == 'é’Ÿ':
                         TTime = time.time()
-                        xs = int(Time.split('·ÖÖÓ')[0])
+                        xs = int(Time.split('åˆ†é’Ÿ')[0])
                         sjc = xs * 60
                         dq_time = TTime - sjc
-                        now_data = time.strftime('%mÔÂ%dÈÕ %H:%M', time.localtime(dq_time))
+                        now_data = time.strftime('%mæœˆ%dæ—¥ %H:%M', time.localtime(dq_time))
                         now_date = now_data[1:]
                         list_data.append(now_date)
                     else:
                         TTime = time.time()
-                        xs = int(Time.split('Ğ¡Ê±')[0])
+                        xs = int(Time.split('å°æ—¶')[0])
                         print('xs',xs)
                         sjc = xs * 60 * 60
                         dq_time = TTime - sjc
-                        now_data = time.strftime('%mÔÂ%dÈÕ %H:%M', time.localtime(dq_time))
+                        now_data = time.strftime('%mæœˆ%dæ—¥ %H:%M', time.localtime(dq_time))
                         now_date = now_data[1:]
                         list_data.append(now_date)
                     # TTime = time.time()
-                    # xs = int(Time.split('Ğ¡Ê±')[0])
+                    # xs = int(Time.split('å°æ—¶')[0])
                     # sjc = xs * 60 * 60
                     # dq_time = TTime - sjc
-                    # now_data = time.strftime('%mÔÂ%dÈÕ %H:%M', time.localtime(dq_time))
+                    # now_data = time.strftime('%mæœˆ%dæ—¥ %H:%M', time.localtime(dq_time))
                     # now_date = now_data[1:]
                     # list_data.append(now_date)
                 except:
-                    # ±¾ÔÂÊı¾İĞ´Èë
+                    # æœ¬æœˆæ•°æ®å†™å…¥
                     try:
-                        by = int(Time.split('ÔÂ')[0])
+                        by = int(Time.split('æœˆ')[0])
                         if by == 8:
                             list_data.append(Time)
                         else:
-                            print("²»ÊÇ±¾ÔÂÊı¾İ£¡²»±£´æ",js2)
+                            print("ä¸æ˜¯æœ¬æœˆæ•°æ®ï¼ä¸ä¿å­˜",js2)
                             js2 +=1
                             if js2 == 15:
-                                print(id,'****¹²',sums-2,'ÌõÊı¾İ****')
+                                print(id,'****å…±',sums-2,'æ¡æ•°æ®****')
                                 time.sleep(random.randint(50, 60))
                                 return sums
                             else:
                                 continue
                     except:
                         if k11 == 8:
-                            print(id, '****¹²', sums - 2, 'ÌõÊı¾İ****')
+                            print(id, '****å…±', sums - 2, 'æ¡æ•°æ®****')
                             time.sleep(random.randint(40, 50))
                             return sums
                         else:
-                            print("----Äê¿ªÍ·²»ÊÇ±¾ÔÂÊı¾İ£¡----",k11)
+                            print("----å¹´å¼€å¤´ä¸æ˜¯æœ¬æœˆæ•°æ®ï¼----",k11)
                             k11 += 1
                             continue
 
@@ -152,7 +152,7 @@ def driver_scroll(driver, url, keyword,zong_sums):
                 set_list1.append(Time)
 
                 # print('list_data2', list_data)
-                # ·¢²¼±êÌâ
+                # å‘å¸ƒæ ‡é¢˜
                 # //div[2]/div[@class='css-1dbjc4n']/div[@class='css-901oao r-18jsvk2 r-37j5jr r-a023e6 r-16dba41 r-rjixqe r-bcqeeo r-bnwqim r-qvutc0']//text()
                 data_biaoti = tweet_info.xpath(
                     ".//div[2]/div[@class='css-1dbjc4n']/div[@class='css-901oao r-18jsvk2 r-37j5jr r-a023e6 r-16dba41 r-rjixqe r-bcqeeo r-bnwqim r-qvutc0']//text()")
@@ -165,45 +165,45 @@ def driver_scroll(driver, url, keyword,zong_sums):
                 list_data.append(biaoti)
                 set_list1.append(biaoti)
 
-                # ÄÚÈİ
+                # å†…å®¹
                 try:
-                    # ¶ÁÈ¡ÄÚÈİÎÄ±¾
+                    # è¯»å–å†…å®¹æ–‡æœ¬
                     data_neirong = tweet_info.xpath(
                         ".//div[@class='css-1dbjc4n']/div[@class='css-1dbjc4n']/div[@class='css-1dbjc4n']//text()")
                     # print('data_neirong>>>>>>>>>>>>>',data_neirong)
                     if data_neirong == []:
-                        neirong = 'Í¼Æ¬'
+                        neirong = 'å›¾ç‰‡'
                     else:
                         neirong = "".join(data_neirong)
                     # print(neirong)
                     list_data.append(neirong)
-                    # ¶ÁÈ¡ÄÚÈİÍ¼Æ¬Á´½Ó
+                    # è¯»å–å†…å®¹å›¾ç‰‡é“¾æ¥
                     # imgs = tweet_info.xpath(".//div[@class='css-1dbjc4n']/div[@class='css-1dbjc4n']/div[@class='css-1dbjc4n']//text()")
                     # for img in imgs:
                     #     list_data.append(img)
                 except:
-                    neirong = 'ÄÚÈİÌáÈ¡ÓĞÎó£¡'
+                    neirong = 'å†…å®¹æå–æœ‰è¯¯ï¼'
                     list_data.append(neirong)
                     # imgs = tweet_info.xpath(".//div[@class='css-1dbjc4n']/div[@class='css-1dbjc4n']/div[@class='css-1dbjc4n']//text()")
                     # for img in imgs:
                     #     list_data.append(img)
 
-                # ÍÆÎÄÁ´½Ó
+                # æ¨æ–‡é“¾æ¥
                 lianjie = tweet_info.xpath(".//div[@class='css-1dbjc4n']/div[@class='css-1dbjc4n r-zl2h9q']/div[1]/div/a/@href")[0]
                 # https://twitter.com/ConfuciusNZ/status/1400768126665457664
                 data_lianjie = 'https://twitter.com' + lianjie
                 print(data_lianjie)
                 list_data.append(data_lianjie)
                 set_list1.append(data_lianjie)
-                # ÆÀ
+                # è¯„
                 try:
                     ping_data1 = tweet_info.xpath(
                         ".//div[3]/div/div[1]/div/div//text()")[
                         0]
                     if ',' in ping_data1:
                         ping = ping_data1.replace(',', '')
-                    elif 'Íò' in ping_data1:
-                        ping2 = ping_data1.replace('Íò', '')
+                    elif 'ä¸‡' in ping_data1:
+                        ping2 = ping_data1.replace('ä¸‡', '')
                         ping = float(ping2) * 10000
                     else:
                         ping = ping_data1
@@ -213,15 +213,15 @@ def driver_scroll(driver, url, keyword,zong_sums):
                     ping_data1 = 0
                     print(ping_data1)
                     list_data.append(ping_data1)
-                # ×ª
+                # è½¬
                 try:
                     zhuan_data1 = tweet_info.xpath(
                         ".//div[3]/div/div[2]/div/div//text()")[
                         0]
                     if ',' in zhuan_data1:
                         zhuan = zhuan_data1.replace(',', '')
-                    elif 'Íò' in zhuan_data1:
-                        zhuan2 = zhuan_data1.replace('Íò', '')
+                    elif 'ä¸‡' in zhuan_data1:
+                        zhuan2 = zhuan_data1.replace('ä¸‡', '')
                         zhuan = float(zhuan2) * 10000
                     else:
                         zhuan = zhuan_data1
@@ -230,7 +230,7 @@ def driver_scroll(driver, url, keyword,zong_sums):
                 except:
                     zhuan_data1 = 0
                     list_data.append(zhuan_data1)
-                # ÔŞ
+                # èµ
                 try:
                     zan_data1 = tweet_info.xpath(
                         ".//div[3]/div/div[3]/div/div//text()")[
@@ -238,8 +238,8 @@ def driver_scroll(driver, url, keyword,zong_sums):
                     # print('zan',zan_data1)
                     if ',' in zan_data1:
                         zan = zan_data1.replace(',', '')
-                    elif 'Íò' in zan_data1:
-                        zan2 = zan_data1.replace('Íò', '')
+                    elif 'ä¸‡' in zan_data1:
+                        zan2 = zan_data1.replace('ä¸‡', '')
                         zan = float(zan2) * 10000
                     else:
                         zan = zan_data1
@@ -249,18 +249,18 @@ def driver_scroll(driver, url, keyword,zong_sums):
                     zan_data1 = 0
                     list_data.append(zan_data1)
 
-                # ÕËºÅÖ÷Ò³Á´½Ó
+                # è´¦å·ä¸»é¡µé“¾æ¥
                 list_data.append(url)
-                # ÅĞ¶ÏÊı¾İÊÇ·ñµ½µ×
+                # åˆ¤æ–­æ•°æ®æ˜¯å¦åˆ°åº•
                 if set_list1 in set_list:
-                    # print("*******ÒÑÖØ¸´»ñÈ¡*********",sum11)
+                    # print("*******å·²é‡å¤è·å–*********",sum11)
                     # print('set_list1',set_list1)
                     sum11 += 1
                     if sum11 == len(tweets_list):
-                        print("<<<<<<<<<<<<<Êı¾İÒ³ÃæÖØ¸´",js_sum,'´Î>>>>>>>>>>>>>>')
+                        print("<<<<<<<<<<<<<æ•°æ®é¡µé¢é‡å¤",js_sum,'æ¬¡>>>>>>>>>>>>>>')
                         js_sum +=1
                         if js_sum ==3:
-                            print(id,'****¹²',sums-2,'ÌõÊı¾İ****')
+                            print(id,'****å…±',sums-2,'æ¡æ•°æ®****')
                             time.sleep(random.randint(50, 65))
                             return sums
                 else:
@@ -269,8 +269,8 @@ def driver_scroll(driver, url, keyword,zong_sums):
                     row = 'A' + str(sums)
                     wsheet1.write_row(row, list_data)
                     # print("***********",list_data)
-                    # print('µÚ', sums - 1, 'Ò³Êı¾İ', 'list_data>>>>>>', list_data)
-                    print('******µÚ', sums - 1, 'ÌõÊı¾İ******')
+                    # print('ç¬¬', sums - 1, 'é¡µæ•°æ®', 'list_data>>>>>>', list_data)
+                    print('******ç¬¬', sums - 1, 'æ¡æ•°æ®******')
                     sums += 1
                     # print('set_list>>>>>>>>>>>>',set_list)
                     # print('set_list1>>>>>>>>>>>>',set_list1)
@@ -278,70 +278,48 @@ def driver_scroll(driver, url, keyword,zong_sums):
             # scroll_step_list[0]=(browser.execute_script("return document.body.scrollHeight;"))
         except Exception as e:
             time.sleep(random.randint(10, 20))
-            print("Êı¾İÓĞÎó£¡",e,bczz)
+            print("æ•°æ®æœ‰è¯¯ï¼",e,bczz)
             bczz +=1
             if bczz == 4:
                 row = 'A' + str(sums)
-                wsheet1.write_row(row, [keyword,'idÎŞ·¢²¼ÕËºÅ','ÎŞ','ÎŞ','ÎŞ','ÎŞ',0,0,0])
+                wsheet1.write_row(row, [keyword,'idæ— å‘å¸ƒè´¦å·','æ— ','æ— ','æ— ','æ— ',0,0,0])
                 # print("***********",list_data)
-                # print('µÚ', sums - 1, 'Ò³Êı¾İ', 'list_data>>>>>>', list_data)
-                print('******µÚ', sums - 1, 'ÌõÊı¾İ******')
+                # print('ç¬¬', sums - 1, 'é¡µæ•°æ®', 'list_data>>>>>>', list_data)
+                print('******ç¬¬', sums - 1, 'æ¡æ•°æ®******')
                 sums += 1
-                print('****¹²', sums - 2, 'ÌõÊı¾İ****')
+                print('****å…±', sums - 2, 'æ¡æ•°æ®****')
                 time.sleep(random.randint(10, 15))
                 return sums
         ks += 1
 
-    print('ÏÂÀ­Ñ­»·½áÊø£¡£¡ÏÂÒ»Î»------')
+    print('ä¸‹æ‹‰å¾ªç¯ç»“æŸï¼ï¼ä¸‹ä¸€ä½------')
 
 
 
 def main(browser):
 
     global wbook
-    # wbook = xw.Workbook('Ê¦×Ê´¦--ÑÇ·Ç£¨·¢ÉùÍ¾¾¶£©ÍÆÌØÊı¾İ4ÔÂ.xlsx')
-    # wbook = xw.Workbook('Ê¦×Ê´¦--Å·ÖŞ½ÌÊ¦×ÔÔ¸ÕßÍÆÌØÊı¾İ4ÔÂ.xlsx')
-    # wbook = xw.Workbook('Ê¦×Ê´¦--Å·ÖŞ½ÌÊ¦×ÔÔ¸ÕßÍÆÌØÊı¾İ4ÔÂ.xlsx')
-    # wbook = xw.Workbook('Ê¦×Ê´¦--ÑÇ·Ç£¨·¢ÉùÍ¾¾¶£©ÍÆÌØÊı¾İ8ÔÂ.xlsx')
-    wbook = xw.Workbook('ÃÀ´óµØÇø×ÔÃ½ÌåÍÆÌØÕËºÅÊı¾İ8ÔÂ.xlsx')
-    # wbook = xw.Workbook('È±Ê§interpretaatioo.xlsx')
+    # wbook = xw.Workbook('å¸ˆèµ„å¤„--äºšéï¼ˆå‘å£°é€”å¾„ï¼‰æ¨ç‰¹æ•°æ®4æœˆ.xlsx')
+    # wbook = xw.Workbook('å¸ˆèµ„å¤„--æ¬§æ´²æ•™å¸ˆè‡ªæ„¿è€…æ¨ç‰¹æ•°æ®4æœˆ.xlsx')
+    # wbook = xw.Workbook('å¸ˆèµ„å¤„--æ¬§æ´²æ•™å¸ˆè‡ªæ„¿è€…æ¨ç‰¹æ•°æ®4æœˆ.xlsx')
+    # wbook = xw.Workbook('å¸ˆèµ„å¤„--äºšéï¼ˆå‘å£°é€”å¾„ï¼‰æ¨ç‰¹æ•°æ®8æœˆ.xlsx')
+    wbook = xw.Workbook('ç¾å¤§åœ°åŒºè‡ªåª’ä½“æ¨ç‰¹è´¦å·æ•°æ®8æœˆ.xlsx')
+    # wbook = xw.Workbook('ç¼ºå¤±interpretaatioo.xlsx')
     global wsheet1
-    wsheet1 = wbook.add_worksheet('Sheet1')  # ´´½¨¹¤×÷±í
-    wsheet1.activate()  # ¼¤»î±í
-    title = ['ÕËºÅID', '·¢²¼ÕË»§', 'Ê±¼ä', '±êÌâ', '·¢ÌûÄÚÈİ','·¢ÌûÁ´½Ó', 'ÆÀÂÛÁ¿', '×ª·¢Á¿','µãÔŞÁ¿','ÕËºÅÖ÷Ò³Á´½Ó']  # ÉèÖÃ±íÍ·
-    wsheet1.write_row('A1', title)  # ´ÓA1µ¥Ôª¸ñĞ´Èë±íÍ·
-
-    # keyword_list = ['interpretaatioo','jul_shii','mazakiiz','sarahzhang','Lucyliu0866','silkroadproject','daisy','hann_lh','Maggie']
-    # keyword_list = ['jul_shii','mazakiiz','sarahzhang','Lucyliu0866','silkroadproject','daisy','MadridConfucio']
-    # keyword_list = ['interpretaatioo']
-    # ÃÀ´óµØÇø×ÔÃ½ÌåÍÆÌØÕËºÅÊı¾İ7ÔÂ.xlsx
-    keyword_list=['ConfuciusNZ','henrylshenGZU','XiaoduanE','ShuZhu18','ybwang1109','Jijun29364265','HuiqunYu','XuemingTeng','diego_ic_unam','heartslens','LiweiHuang10','Francis514','3721Bunny','gxiaomin','DavidLu15687799','QiangDing@CIB','tci@griffith.edu.au','Angela_Muzi','wangna20']
-    # 2 Å·ÖŞµØÇø×ÔÃ½ÌåÍÆÌØÕËºÅÊı¾İ4ÔÂ.xlsx
-    # keyword_list=['CISSStrathclyde','ConfucioRoma','confuciouclm','Confucius_HWU','Confucius_UoS','Confucius17000','ConfuciusCovuni','ConfuciusInst10','ConfuciusInst13','ConfuciusMCR','DMU_CI','GCI_tweets','GoldsmithsCI','HullConfucius','IC_PLA','instituteucc','kongzi_muc','LeuvenKongYuan','MadridConfucio','MandarinLondon1','OBUConfucius','UCL_IOE_CI','confuciusedgehi','KITrier','LCI_SOAS','icbretagne','ConfuciusNeoma','KonfInstitut']
-    # 3 Ê¦×Ê´¦--ÃÀ´ó½ÌÊ¦×ÔÃ½ÌåÍÆÌØÊı¾İ4ÔÂ.xlsx
-    # keyword_list=['ConfucioUES','SusanaWu7','15144410400Demi','Jingjin46354268','Louis_SUS','Yan28552197','Daisy98325175','springsy2016','BrendaBai1','EveLyn05828561','hannah72906108','Hebby49272252','Yveline22823356','JingleBelle168','Kailin10600780','Changhai117','Phoebe57385651','xu81915375','caicai93813838','Cynthia53765775','JingWen95221653','weiqian52497967','Joanna19406205','Julia90977387','Sophia46603189','Helen90034416','Natalie08345170','RUILIU76752215','yinseyueguang','Na99402397','GraceWang11','ChineseWems','Xiao50579103','zliina1','wLY5X6D8zCDlVe2','jingkang1','ssJudyzhu','JingjiaoC','tracyzhao19','Wang46444323','JenniferFu15','sam76104491','Guoshangwei','dengwenyi','Li82404363','Li88606719','Jamie78036488','Siyu_Zhang_','peile_tian','Chines3Mandarin','Michaelgong17']
-    # 4 Ê¦×Ê´¦--Å·ÖŞ½ÌÊ¦×ÔÔ¸ÕßÍÆÌØÊı¾İ4ÔÂ.xlsx
-    # keyword_list=['Alexljy1','Chris2388102','FengLiang20','HongyeLyu','jul_shii','Lanmei89027111','mina_talks','Sandycoco9','Tootielovely','XHaoying','ASandyyyyy','Esmi_shera','LunaMandarin','LunaDai4','LuoSufang','Melodywei9','Mia78881800','xiaowan08414204','YAN76368323','breath032','CallBoring','cestlav54663890','smiledoreen3','baoyinhui','limeiwang7','ProChinois','song_yajun','sunmaobian','Wenhui_FFM','Mingzhu69857844','MissH31988166','wuqian12076413','junmei','YunfeiLiang','AlexS98697900','chowcho51355522','ClemenceBon','estrellacork171','IcebergTom','Kenneth71886531','Lucas72676614','NiuXingyuan','Stacy27021975','GuizhiZhu','Chineseresourc1','bo4BGdzXaQ6sCQ8','Clara46679600','LingyuChen6','MVicky1031','PengFu20','Shi61S','XuanZeng1','XuyangJiang','Lili23460734','xuehanyu5','EmiliaZhou','joyxuan','lee71321195']
-    # 5 Ê¦×Ê´¦--ÑÇ·Ç£¨·¢ÉùÍ¾¾¶£©ÍÆÌØÊı¾İ4ÔÂ.xlsx
-    # keyword_list = ['AliZafarsays','cocojournalist','della_cool','gaowei2009','interpretaatioo','joce_cheng','jyfchen','KWangESPN','leisunZH','liu_tongxi','mazakiiz','photoft45','rhyme_andreason','sarahzhang','xiaohuawang4','XiaoliHuffman','XinyuLiu201202','xuzhe','YangRuby','Benlxiang','grace_c_liu','lilyarieslee','rrrlisarrr','yezhangyezhang','elleforlife','YanWang82488122','sandyliu12','ShanZha01828221','jjgod','weimin2008','YingWang_CHI','cuipengke','KapaluRichard','pacatuspraeses','laiying_yu','PurpleGrapes5','HungweiZhang','TonyZhang607','Yuhao_lim','Yueqing_AVH','yuee_li','shuypsusu','Yanmeili8','zengyan0807','legendyard','WeiWangArt','wangshuhua1','wxjhahaha','wangenjie1','VeraShen8','vanessachenbe','uropb123','yitingtan','suhang189_su','zhang_shzhang','XaythaZ','jiao_qun','QingyiChen6','qiaoxiaL','PingDeng7','paul_jaky','MerlinXu3','WangMeiYu4','tiv92','meganwbyy','marinebeans','zhanluyu0528','liyinbo41','Liuxiao98822538','lishenyu16','Irene_lingfangZ','mcluxun','li_yuanzheng','miischinese','kaixianli','JinYaqoob','jinger_zhao','jilinzhiwang','hyesuk47','huangzhongtian','HuaidongZhang','Huahuare','HoweLAU1','HongSun55833628','mimmzy011214','Haiyankang81','GShoujing','fushunma','dongbinfeeds','dingdang','DengBing7','DaviaLee','chen_dafu','confuciusbuu','foodjetaime','ChengfeiHe','chenlei199012','tri_bona','anthonywang','annaliu','Yingmeister','lulucc2008','Zhangliyan4','Silvana_Ling','XiaoRong_123','YukeWang4','WangBingxinA','StormieLei1','SherryYao20','NingTsan','YueLiArt','YLaiping','jianglulu1987','huilingliu8','HRWang3','QiyingH','GuanghuiLu','feifeidai','DaiJiawei1']
-    # keyword_list = ['','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','',]
-    # 6 Ê¦×Ê´¦--ÑÇ·Ç£¨¹«ÅÉÍ¾¾¶£©ÍÆÌØÊı¾İ4ÔÂ.xlsx
-    # keyword_list = ['gaoxing0103', 'sara08737544', 'annieri24224646', 'Bali20995725', 'guoxy0913', 'nambiagu', 'WangDarcie1', 'Faye202008', 'lihualai2', 'seniorking89', 'yangmo64234393']
-    # 7 ÑÇ·Ç´¦--¹Ù·½ÍøÕ¾ÍÆÌØÊı¾İ4ÔÂ.xlsx
-    # keyword_list = ['5FUt4qpva4fUdQU','at_unima','CI_RDC','CiurCe','confuciu8','institut_a','kousigakudo','MakConfucius','Okan_Confucius','uj_confucius','hallaconfucius','IRISWU67055151','ktjycjustv','metuconfucius','CiUDSM','jinzi94400885','ccccieec','FuqingIn','KenyaKuci','LJoyrunner','icnaustp','kzxymsd','icultogo','confuciusucc','FamilyOnCI','ateneoconfucius','ConfuciusYonsei','kogakuin_cik','CKelaniya','CIPU_JORDAN']
-    # 8 ÑÇ·Ç´¦--ÖĞ·½Ôº³¤¸öÈË×ÔÃ½ÌåÍÆÌØÕËºÅ4ÔÂ.xlsx
-    # keyword_list = ['Lucyliu0866','silkroadproject','YonghongYou','Youjiexuxin','lusunam1','chen_mingkun','TWoodfourth','ShirleyWang','AdolpheQiang','RockyLi44017918','laoerlang','beiyuchenlaoshi','bo_wu3','BorisjasonShi','jane42928513','MrFrankWU','wbx1101','zuyunyun','TingSmr','Wpan2003','marontion','Cynthialiang7','Michael_wjs','hiroshi20183','WeiHuan95253386']
-    # Ö¾Ô¸Õß´¦ÍÆÌØÕËºÅÊı¾İ4ÔÂ.xlsx
+    wsheet1 = wbook.add_worksheet('Sheet1')  # åˆ›å»ºå·¥ä½œè¡¨
+    wsheet1.activate()  # æ¿€æ´»è¡¨
+    title = ['è´¦å·ID', 'å‘å¸ƒè´¦æˆ·', 'æ—¶é—´', 'æ ‡é¢˜', 'å‘å¸–å†…å®¹','å‘å¸–é“¾æ¥', 'è¯„è®ºé‡', 'è½¬å‘é‡','ç‚¹èµé‡','è´¦å·ä¸»é¡µé“¾æ¥']  # è®¾ç½®è¡¨å¤´
+    wsheet1.write_row('A1', title)  # ä»A1å•å…ƒæ ¼å†™å…¥è¡¨å¤´
+    # å¿—æ„¿è€…å¤„æ¨ç‰¹è´¦å·æ•°æ®4æœˆ.xlsx
     # keyword_list = ['0327Gul','daisy','hann_lh','lenka','Maggie','nanCy','Rachlai','yang','limonian0617','louissssssmile','PzEnll','Benice58179573','Lydia69299359','CedricChang7','GatheringV','PeipeiZhang610','YeyeYzw','amandaypj','elie50651039','qingaqing1','63X4tttxq4MXArA','Bless_Lucky_','cccccci9','ErjinP','FionaYue3','HCaixiang','HUIZI92123','JOJO61611444','kepluence','Liana63845353','Lily_haruharu','maria03024','MWangcito','Nicolee59490329','SallyYangyang','Yvonne45364843','yyybeier','ZhangFang666','zorazc2625','1S3ihe790TII317','Aria96367818','Cabiwoo0618','Christi63119299','cswsantiniketan','DawnMarrrr','DeonLeowzk','djS8fYXDvKwgypG','Eleven42835322','Esquilo_Hanz','Estella58429332','Eva12291209','ft1sLE1dLRE3kCF','fugui42112644','Heya_rong','Ivyki2','Jene38893014','Jia49537324','jiamin84403979','jiumia','JKmuCqWGq24PKrF','junjunjingsheng','Kiki44204778','KishiShen','LIANGYU99531912','LiChen92047456','lily91152252','lilyc_loveart','Lilytan16722889','LingzhiWang6','linpinru2020','Lowboom233','LuluAdela_Yu','mingduo4','Nadya83567533','Niki22878835','peng34114638','qinqinlin7','queyuhe','saijun_jin','shanshan_meow','Siqin52813699','sourfishxy','svenjaindeu','TreeSerene','yizhidaidai','YueyuanChen230','YvetteYu1','zfW4b8j97KdO4eB','Zhang26999732','Melon75275430','a402651181','diego87122390','5v2qcDHGu9Khl4','LilihuangSA','della08231','Jasnelly','Delia','chen0801','esytella1','alisony','ciellexd','AliciaChen','dilidili','ChelseaDSQ','ahuang','Felicia','forence','LeoLiu','Anitawbb','BRAD_SHEN','fusuluobo','kun_hoa','Cecilia_S','jingyi_qin','win_y','LILAS','MAYMAY','Xuejiao91551097','Meiya20532615','Ximena0707','oneday','Yenni','liuying']
-    # keyword_list = ['Rachlai']
-    # µÚ¶şĞĞ¿ªÊ¼Ğ´Èë
+    # ç¬¬äºŒè¡Œå¼€å§‹å†™å…¥
     zong_sums = 2
 
     for keyword in keyword_list:
-        # search_url = "https://twitter.com/search?f=live&q=coronavirus%20until%3A2020-01-31%20since%3A2020-01-30&src=typed_query".format(keyword)  #ÖĞÎÄËÑË÷
-        # search_url = """https://twitter.com/search?q="{}"%20-"Ô¼ÅÚ"-%20until%3A2020-12-06%20since%3A2020-06-01&src=typed_query&f=live""".format(keyword)  # ²»ÏŞÓïÑÔ
+        # search_url = "https://twitter.com/search?f=live&q=coronavirus%20until%3A2020-01-31%20since%3A2020-01-30&src=typed_query".format(keyword)  #ä¸­æ–‡æœç´¢
+        # search_url = """https://twitter.com/search?q="{}"%20-"çº¦ç‚®"-%20until%3A2020-12-06%20since%3A2020-06-01&src=typed_query&f=live""".format(keyword)  # ä¸é™è¯­è¨€
         search_url = "https://twitter.com/{}".format(keyword)
-        print("ÕıÔÚ»ñÈ¡ÓÃ»§¡¾{}¡¿ÏÂµÄÍÆÌØĞÅÏ¢----".format(keyword), '\n', search_url)
+        print("æ­£åœ¨è·å–ç”¨æˆ·ã€{}ã€‘ä¸‹çš„æ¨ç‰¹ä¿¡æ¯----".format(keyword), '\n', search_url)
         time.sleep(2)
 
         try:
@@ -350,7 +328,7 @@ def main(browser):
             zong_sums = driver_scroll(browser, search_url, keyword, zong_sums)
             print('zong_sums:',zong_sums)
         except Exception as WebDriverErr:
-            print("Ä£Äâ³ö´í£¡", WebDriverErr)
+            print("æ¨¡æ‹Ÿå‡ºé”™ï¼", WebDriverErr)
             continue
         # break
     wbook.close()
@@ -365,7 +343,7 @@ if __name__ == '__main__':
         print(mainErr)
         close_web_driver(browser)
     close_web_driver(browser)
-    print("±¾ÂÖ×¥È¡½áÊø£¬ÇëµÈ´ıs½øÈëÏÂÒ»ÂÖ×¥È¡!!!")
+    print("æœ¬è½®æŠ“å–ç»“æŸï¼Œè¯·ç­‰å¾…sè¿›å…¥ä¸‹ä¸€è½®æŠ“å–!!!")
     # while True:
     #     browser = open_web_driver()
     #     try:
@@ -376,5 +354,5 @@ if __name__ == '__main__':
     #         continue
     #     close_web_driver(browser)
     #     t = random.randrange(60, 100)
-    #     print("±¾ÂÖ×¥È¡½áÊø£¬ÇëµÈ´ı{}s½øÈëÏÂÒ»ÂÖ×¥È¡!!!".format(t))
+    #     print("æœ¬è½®æŠ“å–ç»“æŸï¼Œè¯·ç­‰å¾…{}sè¿›å…¥ä¸‹ä¸€è½®æŠ“å–!!!".format(t))
     #     time.sleep(t)
